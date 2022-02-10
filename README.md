@@ -35,6 +35,6 @@ When a code is created a discord webhook will be sent with the new codes informa
 
 # Other Resources
 
-> [Rebel Trucking [QB/ESX]](https://forum.cfx.re/t/rebel-trucking-advanced-truck-deliveries-qb-esx/4804298/11)
+> [Rebel Trucking [QB/ESX]](https://forum.cfx.re/t/rebel-trucking-advanced-truck-deliveries-qb-esx/4804298)
 > 
 > [Rebel Impound Job [QB]](https://forum.cfx.re/t/rebel-impound-job-realistic-impound-job-qb/4808148)
