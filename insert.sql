@@ -5,5 +5,7 @@ CREATE TABLE IF NOT EXISTS `promocodes` (
   `amount` int(255) NOT NULL,
   `code` varchar(255) NOT NULL,
   `admin` varchar(255) NOT NULL,
+  `uses` int(255) NOT NULL,
+  `redeemed_players` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
