@@ -204,7 +204,7 @@ QBCore.Commands.Add(Config.Redeem_Code_Command, "Redeem a promo code", { {name =
                             MySQL.Async.execute('UPDATE promocodes SET uses = ? WHERE code = ?', {(result[1].uses - 1), args[1]})
                         end
 
-                        sendToDiscord(16753920, "Rebel Promo Codes | Code redeemed", Player.PlayerData.name.." redeemed "..result[1].amount.."x "..QBCore.Shared.Items[result[1].item]['label'].." with "..args.itemuses.."x uses\n\n**Code:** "..args[1].."\n**Name:** "..Player.PlayerData.name.."\n**Character Name:** "..Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname.."\n**License:** "..Player.PlayerData.license.."\n**Citizenid:** "..Player.PlayerData.citizenid.."\n**Ingame ID:** "..Player.PlayerData.cid, "Made by Rebel Scripts", "redeemed")
+                        sendToDiscord(16753920, "Rebel Promo Codes | Code redeemed", Player.PlayerData.name.." redeemed "..result[1].amount.."x "..QBCore.Shared.Items[result[1].item]['label'].." | There are "..(result[1].uses - 1).." uses left\n\n**Code:** "..args[1].."\n**Name:** "..Player.PlayerData.name.."\n**Character Name:** "..Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname.."\n**License:** "..Player.PlayerData.license.."\n**Citizenid:** "..Player.PlayerData.citizenid.."\n**Ingame ID:** "..Player.PlayerData.cid, "Made by Rebel Scripts", "redeemed")
                     else
                         TriggerClientEvent("QBCore:Notify", src, "You have already redeemed this code...", "error", 6000)
                     end
@@ -244,7 +244,7 @@ QBCore.Commands.Add(Config.Redeem_Code_Command, "Redeem a promo code", { {name =
                             MySQL.Async.execute('UPDATE promocodes SET uses = ? WHERE code = ?', {(result[1].uses - 1), args[1]})
                         end
 
-                        sendToDiscord(16753920, "Rebel Promo Codes | Code redeemed", Player.PlayerData.name.." redeemed $"..result[1].amount.." "..result[1].item.."\n\n**Code:** "..args[1].."\n**Name:** "..Player.PlayerData.name.."\n**Character Name:** "..Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname.."\n**License:** "..Player.PlayerData.license.."\n**Citizenid:** "..Player.PlayerData.citizenid.."\n**Ingame ID:** "..Player.PlayerData.cid, "Made by Rebel Scripts", "redeemed")
+                        sendToDiscord(16753920, "Rebel Promo Codes | Code redeemed", Player.PlayerData.name.." redeemed $"..result[1].amount.." "..result[1].item.." | There are "..(result[1].uses - 1).." uses left\n\n**Code:** "..args[1].."\n**Name:** "..Player.PlayerData.name.."\n**Character Name:** "..Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname.."\n**License:** "..Player.PlayerData.license.."\n**Citizenid:** "..Player.PlayerData.citizenid.."\n**Ingame ID:** "..Player.PlayerData.cid, "Made by Rebel Scripts", "redeemed")
                     else
                         TriggerClientEvent("QBCore:Notify", src, "You have already redeemed this code...", "error", 6000)
                     end
@@ -322,7 +322,7 @@ RegisterNetEvent('rebel-promocodes:server:redeemvehicle', function(args)
                 MySQL.Async.execute('UPDATE promocodes SET uses = ? WHERE code = ?', {(args.result.uses - 1), args.args})
             end
 
-            sendToDiscord(16753920, "Rebel Promo Codes | Code redeemed", Player.PlayerData.name.." redeemed "..args.result.amount.."x "..QBCore.Shared.Vehicles[args.result.item]['name'].."\n\n**Code:** "..args.args.."\n**Name:** "..Player.PlayerData.name.."\n**Character Name:** "..Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname.."\n**License:** "..Player.PlayerData.license.."\n**Citizenid:** "..Player.PlayerData.citizenid.."\n**Ingame ID:** "..Player.PlayerData.cid, "Made by Rebel Scripts", "redeemed")
+            sendToDiscord(16753920, "Rebel Promo Codes | Code redeemed", Player.PlayerData.name.." redeemed "..args.result.amount.."x "..QBCore.Shared.Vehicles[args.result.item]['name'].." | There are "..(args.result.uses - 1).." uses left\n\n**Code:** "..args.args.."\n**Name:** "..Player.PlayerData.name.."\n**Character Name:** "..Player.PlayerData.charinfo.firstname.." "..Player.PlayerData.charinfo.lastname.."\n**License:** "..Player.PlayerData.license.."\n**Citizenid:** "..Player.PlayerData.citizenid.."\n**Ingame ID:** "..Player.PlayerData.cid, "Made by Rebel Scripts", "redeemed")
         else
             TriggerClientEvent("QBCore:Notify", src, "You have already redeemed this code...", "error", 6000)
         end
@@ -331,15 +331,15 @@ end)
 
 function sendToDiscord(color, name, message, footer, type)
     local embed = {
-          {
-              ["color"] = color,
-              ["title"] = "**".. name .."**",
-              ["description"] = message,
-              ["footer"] = {
-                  ["text"] = footer,
-              },
-          }
-      }
+            {
+                ["color"] = color,
+                ["title"] = "**".. name .."**",
+                ["description"] = message,
+                ["footer"] = {
+                ["text"] = footer
+            }
+        }
+    }
   
     if type == "created" then
         PerformHttpRequest(Config['Webhooks']['Created_Code'], function(err, text, headers) end, 'POST', json.encode({username = name, embeds = embed}), { ['Content-Type'] = 'application/json' })
