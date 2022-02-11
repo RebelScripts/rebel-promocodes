@@ -25,8 +25,7 @@ local function GiveVehicle(pData, vehicle, garage)
     })
 end
 
-RegisterNetEvent('rebel-promocodes:server:createpromocode')
-AddEventHandler('rebel-promocodes:server:createpromocode', function(args)
+RegisterNetEvent('rebel-promocodes:server:createpromocode', function(args)
     local src = source
     local Player = QBCore.Functions.GetPlayer(source)
 
@@ -283,8 +282,7 @@ QBCore.Commands.Add(Config.Create_Code_Command, 'Create a promo code (ADMIN)', {
     TriggerClientEvent('rebel-promocodes:client:openpromocodecreator', source)
 end, 'admin')
 
-RegisterNetEvent('rebel-promocodes:server:redeemvehicle')
-AddEventHandler('rebel-promocodes:server:redeemvehicle', function(args)
+RegisterNetEvent('rebel-promocodes:server:redeemvehicle', function(args)
 	local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 
