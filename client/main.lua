@@ -1,7 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('rebel-promocodes:client:openpromocodecreator')
-AddEventHandler('rebel-promocodes:client:openpromocodecreator', function()
+RegisterNetEvent('rebel-promocodes:client:openpromocodecreator', function()
     local dialog = exports['qb-input']:ShowInput({
         header = "Promo Code Creator",
         submitText = "Create",
@@ -42,8 +41,7 @@ AddEventHandler('rebel-promocodes:client:openpromocodecreator', function()
     end
 end)
 
-RegisterNetEvent('rebel-promocodes:client:opengarageselector')
-AddEventHandler('rebel-promocodes:client:opengarageselector', function(result, args)
+RegisterNetEvent('rebel-promocodes:client:opengarageselector', function(result, args)
 	local option = {}
 
     if Config.Garage_Version:lower() == "old" then
