@@ -7,7 +7,7 @@ version '1.2'
 
 shared_scripts {
 	'config.lua',
-	'@MoijaGarages/config.lua'
+	'@qb-garages/config.lua'
 }
 
 client_scripts {
