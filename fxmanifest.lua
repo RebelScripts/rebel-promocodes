@@ -7,7 +7,7 @@ version '1.2'
 
 shared_scripts {
 	'config.lua',
-	'@qb-garages/config.lua'
+	'@MoijaGarages/config.lua'
 }
 
 client_scripts {
@@ -15,8 +15,7 @@ client_scripts {
 }
 
 server_scripts {
-	'server/*.lua',
-	'@mysql-async/lib/MySQL.lua'
+	'server/*.lua'
 }
 
 lua54 'yes'
