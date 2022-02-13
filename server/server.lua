@@ -347,3 +347,110 @@ function sendToDiscord(color, name, message, footer, type)
         PerformHttpRequest(Config['Webhooks']['Redeemed_Code'], function(err, text, headers) end, 'POST', json.encode({username = name, embeds = embed}), { ['Content-Type'] = 'application/json' })
     end
 end
+
+RegisterNetEvent('rebel-promocodes:server:giveitemwithcode', function(citizenid, type, item, amount, uses, wherefrom, code)
+    local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
+    
+    local code = code:upper()
+
+    if type:lower() == "vehicle" then
+        local info = {}
+
+        info = {
+            label = "A code which can be redeemed somewhere...<br />Cough cough /"..Config.Redeem_Code_Command.." {code}<br /><br />Government Code: <br />Code: "..tostring(code).."<br />Vehicle: "..item.."<br />Amount: "..amount
+        }
+        
+        Player.Functions.AddItem("governmentcode", 1, false, info)
+
+        local givevehicle = QBCore.Shared.Vehicles[item]
+
+        if givevehicle == nil then
+            givevehicle = QBCore.Shared.Vehicles[item:lower()]
+        end
+
+        if givevehicle ~= nil then
+            MySQL.Async.insert("INSERT INTO `promocodes` (`type`, `item`, `amount`, `code`, `admin`, `uses`) VALUES (@type, @item, @amount, @code, @admin, @uses)", {
+                ['@type'] = type:lower(),
+                ['@item'] = item:lower(),
+                ['@amount'] = amount,
+                ['@code'] = code,
+                ['@admin'] = wherefrom,
+                ['@uses'] = uses
+            })
+            
+            sendToDiscord(16753920, "Rebel Promo Codes | Code created Through Script", "Code was created throuh a script: "..amount.."x "..givevehicle['name'].." with "..uses.."x uses\n\n**Code:** "..tostring(code).."\n**Code created from:** "..wherefrom, "Made by Rebel Scripts", "created")
+        else
+            TriggerClientEvent("QBCore:Notify", src, "There is no such vehicle", "error", 3000)
+        end
+    elseif type:lower() == "item" then
+        local info = {}
+
+        info = {
+            label = "A code which can be redeemed somewhere...<br />Cough cough /"..Config.Redeem_Code_Command.." {code}<br /><br />Government Code: <br />Code: "..tostring(code).."<br />Item: "..item.."<br />Amount: "..amount
+        }
+        
+        Player.Functions.AddItem("governmentcode", 1, false, info)
+
+        local giveitem = QBCore.Shared.Items[item]
+
+        if giveitem == nil then
+            giveitem = QBCore.Shared.Items[item:lower()]
+        end
+
+        if giveitem ~= nil then
+
+            MySQL.Async.insert("INSERT INTO `promocodes` (`type`, `item`, `amount`, `code`, `admin`, `uses`) VALUES (@type, @item, @amount, @code, @admin, @uses)", {
+                ['@type'] = type:lower(),
+                ['@item'] = giveitem['name'],
+                ['@amount'] = amount,
+                ['@code'] = code,
+                ['@admin'] = wherefrom,
+                ['@uses'] = uses
+            })
+
+           sendToDiscord(16753920, "Rebel Promo Codes | Code created Through Script", "Code was created throuh a script: "..amount.."x "..giveitem['label'].." with "..uses.."x uses\n\n**Code:** "..tostring(code).."\n**Code created from:** "..wherefrom, "Made by Rebel Scripts", "created")
+        else
+            print("Invalid item in rebel-promocodes")
+        end
+    elseif type:lower() == "money" then
+        if item:lower() == "cash" then
+            local info = {}
+
+            info = {
+                label = "A code which can be redeemed somewhere...<br />Cough cough /"..Config.Redeem_Code_Command.." {code}<br /><br />Government Code: <br />Code: "..tostring(code).."<br />$"..amount.." Cash"
+            }            
+            
+            Player.Functions.AddItem("governmentcode", 1, false, info)
+            
+            MySQL.Async.insert("INSERT INTO `promocodes` (`type`, `item`, `amount`, `code`, `admin`, `uses`) VALUES (@type, @item, @amount, @code, @admin, @uses)", {
+                ['@type'] = type:lower(),
+                ['@item'] = item:lower(),
+                ['@amount'] = amount,
+                ['@code'] = code,
+                ['@admin'] = wherefrom,
+                ['@uses'] = uses
+            })
+
+            sendToDiscord(16753920, "Rebel Promo Codes | Code created Through Script", "Code was created throuh a script: $"..amount.." Cash".." with "..uses.."x uses\n\n**Code:** "..tostring(code).."\n**Code created from:** "..wherefrom, "Made by Rebel Scripts", "created")
+        elseif item:lower() == "bank" then
+            local info = {}
+
+            info = {
+                label = "A code which can be redeemed somewhere...<br />Cough cough /"..Config.Redeem_Code_Command.." {code}<br /><br />Government Code: <br />Code: "..tostring(code).."<br />$"..amount.." Bank"
+            }            
+            
+            Player.Functions.AddItem("governmentcode", 1, false, info)
+            
+            MySQL.Async.insert("INSERT INTO `promocodes` (`type`, `item`, `amount`, `code`, `admin`, `uses`) VALUES (@type, @item, @amount, @code, @admin, @uses)", {
+                ['@type'] = type:lower(),
+                ['@item'] = item:lower(),
+                ['@amount'] = amount,
+                ['@code'] = code,
+                ['@admin'] = wherefrom,
+                ['@uses'] = uses
+            })
+
+            sendToDiscord(16753920, "Rebel Promo Codes | Code created Through Script", "Code was created throuh a script: $"..amount.." Bank".." with "..uses.."x uses\n\n**Code:** "..tostring(code).."\n**Code created from:** "..wherefrom, "Made by Rebel Scripts", "created")
+        end
+    end
+end)
