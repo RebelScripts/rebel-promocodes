@@ -18,6 +18,8 @@ When a code is created a discord webhook will be sent with the new codes informa
 
 * | Set item quantity, example 5x joints
 
+* | Set item uses, example 5 uses
+
 * | Nice promo code creator menu built with qb-input
 
 * | Discord webhook messages for when a code is created and redeemed.
