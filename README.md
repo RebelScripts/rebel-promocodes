@@ -1,3 +1,5 @@
+# Important! This resource is no longer supported. This script may work for you, but full functionality is not guaranteed.
+
 # rebel-promocodes
 
 ![image](https://user-images.githubusercontent.com/25962081/153479553-cc41f876-9bd8-4f9f-8fa6-2de6bd7fb8c5.png)
